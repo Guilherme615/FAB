@@ -35,36 +35,45 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+            <a class="nav-link {% if request.path == '/' %}active fw-bold{% endif %}" href="{% url 'index' %}">
+              <i class="fas fa-home"></i> Início
+            </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.view_name == 'editais' %}active fw-bold{% endif %}" href="{% url 'editais' %}">
+              <i class="fas fa-file-alt"></i> Editais
+          </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.view_name == 'resultados' %}active fw-bold{% endif %}" href="{% url 'resultados' %}">
+                <i class="fas fa-check-circle"></i> Resultados
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.view_name == 'about' %}active fw-bold{% endif %}" href="{% url 'about' %}">
+                <i class="fas fa-info-circle"></i> Sobre a FAB
+            </a>
+        </li>
+        {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link active" href="{% url 'index' %}"><i class="fas fa-home"></i> Início</a>
+                <a class="nav-link {% if request.resolver_match.view_name == 'candidato' %}active fw-bold{% endif %}" href="{% url 'candidato' %}">
+                    <i class="fas fa-user-circle"></i> Área do Candidato
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'editais' %}"><i class="fas fa-file-alt"></i> Editais</a>
+                <a class="nav-link {% if request.resolver_match.view_name == 'cadastrar_editais' %}active fw-bold{% endif %}" href="{% url 'cadastrar_editais' %}">
+                    <i class="fas fa-file-upload"></i> Cadastrar Edital
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'resultados' %}"><i class="fas fa-check-circle"></i> Resultados</a>
+                <a class="nav-link" href="{% url 'logout' %}">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'about' %}"><i class="fas fa-info-circle"></i> Sobre a FAB</a>
-            </li>
+        {% else %}
             <li class="nav-item dropdown">
-              {% if user.is_authenticated %}
-                <!-- Exibe o botão "Sair" quando o usuário está logado -->
-                <div class="nav-links d-flex align-items-center">
-                    <a class="nav-link me-3" href="{% url 'candidato' %}">
-                        <i class="fas fa-user-circle"></i> Área do Candidato
-                    </a>
-                    <!-- Novo link para Cadastrar Edital -->
-                    <a class="nav-link me-3" href="{% url 'cadastrar_editais' %}">
-                        <i class="fas fa-file-upload"></i> Cadastrar Edital
-                    </a>
-                    <a class="nav-link" href="{% url 'logout' %}">
-                        <i class="fas fa-sign-out-alt"></i> Sair
-                    </a>
-                </div>                
-            {% else %}
-                <!-- Exibe o botão "Entrar" quando o usuário não está logado -->
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fas fa-sign-in-alt"></i> Entrar
                 </a>
@@ -78,9 +87,10 @@
                         </a>
                     </li>
                 </ul>
-            {% endif %}
-          </li>
-        </ul>
+            </li>
+        {% endif %}
+      
+      </ul>    
     </div>
   </div>
 </nav>
@@ -98,27 +108,7 @@
 {% endblock %}
 
 {% block rodape %}
-<!-- Footer -->
-<footer class="footer text-center">
-    <div class="container py-4">
-      <p class="mb-2">Siga-nos nas redes sociais:</p>
-      <div class="social-icons mb-3">
-        <a href="https://www.facebook.com/portalfab" target="_blank" aria-label="Facebook">
-          <i class="fab fa-facebook fa-2x"></i>
-        </a>
-        <a href="https://twitter.com/portalfab" target="_blank" aria-label="Twitter" class="mx-3">
-          <i class="fab fa-twitter fa-2x"></i>
-        </a>
-        <a href="https://www.instagram.com/portalfab/" target="_blank" aria-label="Instagram">
-          <i class="fab fa-instagram fa-2x"></i>
-        </a>
-      </div>
-      <p>
-        <a href="{% url 'feedback' %}" class="feedback-link">Deixe seu feedback</a>
-      </p>
-      <p>© 2024 Força Aérea Brasileira. Todos os direitos reservados.</p>
-    </div>
-</footer>
+    {% include 'footer.html' %}
 {% endblock %}
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
