@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convocação Temporária FAB</title>
+  <link rel="icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Arquivos CSS locais -->
+  <link rel="stylesheet" href="{% static 'css/index-style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/about-style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/candidato-style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/editais-style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/inscricao-style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/resultados-style.css' %}">
+</head>
+<body>
+
+{% block sidebar %}
+<!-- Header/Navbar -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <!-- Adicionando o logo -->
+    <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="{% static 'images/logo-mini.png' %}" alt="Logo FAB" class="logo-fab me-2">
+        FAB Temporários
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'index' %}"><i class="fas fa-home"></i> Início</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'editais' %}"><i class="fas fa-file-alt"></i> Editais</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'resultados' %}"><i class="fas fa-check-circle"></i> Resultados</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}"><i class="fas fa-info-circle"></i> Sobre a FAB</a>
+            </li>
+            <li class="nav-item dropdown">
+              {% if user.is_authenticated %}
+                  <!-- Exibe o botão "Sair" quando o usuário está logado -->
+                  <a class="nav-link" href="{% url 'logout' %}">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </a>
+              {% else %}
+                  <!-- Exibe o botão "Entrar" quando o usuário não está logado -->
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fas fa-sign-in-alt"></i> Entrar
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="nav-link" href="{% url 'register' %}">
+                          <i class="fas fa-pen"></i> Inscrição
+                      </a>
+                      <li>
+                          <a class="dropdown-item" href="{% url 'login' %}">
+                              <i class="fas fa-user-circle"></i> Área do Candidato
+                          </a>
+                      </li>
+                  </ul>
+              {% endif %}
+          </li>
+        </ul>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+
+{% block conteudo %}
+<<<<<<< HEAD
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <h1 class="display-4 fw-bold">Bem-vindo à Convocação Temporária da FAB</h1>
+    <p class="lead">Acesse informações sobre editais, inscrições e resultados para ingressar na Força Aérea Brasileira.</p>
+    <a href="{% url 'editais' %}" class="btn btn-custom btn-lg">Confira os Editais</a>
+  </div>
+</section>
+{% endblock %}
+
+{% block rodape %}
+<!-- Footer -->
+<footer class="footer text-center">
+    <div class="container py-4">
+      <p class="mb-2">Siga-nos nas redes sociais:</p>
+      <div class="social-icons mb-3">
+        <a href="https://www.facebook.com/portalfab" target="_blank" aria-label="Facebook">
+          <i class="fab fa-facebook fa-2x"></i>
+        </a>
+        <a href="https://twitter.com/portalfab" target="_blank" aria-label="Twitter" class="mx-3">
+          <i class="fab fa-twitter fa-2x"></i>
+        </a>
+        <a href="https://www.instagram.com/portalfab/" target="_blank" aria-label="Instagram">
+          <i class="fab fa-instagram fa-2x"></i>
+        </a>
+      </div>
+      <p>
+        <a href="{% url 'feedback' %}" class="feedback-link">Deixe seu feedback</a>
+      </p>
+      <p>© 2024 Força Aérea Brasileira. Todos os direitos reservados.</p>
+    </div>
+</footer>
+{% endblock %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+=======
+    <div id="conteudo">
+        <div class="banner">
+            <div class="slider" style="--quantity: 10">
+                {% for obra in obras %}
+                <div class="item" style="--position: {{ forloop.counter }}">
+                    <a href="{% url 'detalhes_obra' obra.titulo %}">
+                        <img src="{{ obra.capa.url }}" alt="{{ obra.titulo }}">
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="content">
+                <h1 data-content="Otaku Estudante">Otaku Estudante</h1>
+                <div class="model"></div>
+            </div>
+        </div>
+
+        <!-- Botão "Ver Mais" -->
+        <div style="text-align: center; margin-top: 0px;">
+            <a href="{% url 'todas_as_obras' %}" class="btn btn-primary" style="padding: 10px 20px; font-size: 16px;">
+                Ver Mais Obras
+            </a>
+        </div>
+    </div>
+{% endblock %}
+>>>>>>> 5e9ebc0202526dd3e04a35ac43592f5ae7481ee8

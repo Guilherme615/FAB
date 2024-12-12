@@ -1,0 +1,74 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block conteudo %}
+
+<!-- Área do Candidato -->
+<section class="area-candidato py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Painel do Candidato</h2>
+    
+    <!-- Painel -->
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card shadow">
+          <div class="card-body text-center">
+            <i class="fas fa-clipboard-list fa-3x mb-3 text-primary"></i>
+            <h5 class="card-title">Status das Inscrições</h5>
+            <p class="card-text">Acompanhe o status das inscrições realizadas.</p>
+            <a href="{% url 'resultados' %}" class="btn btn-custom">Ver Detalhes</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow">
+          <div class="card-body text-center">
+            <i class="fas fa-history fa-3x mb-3 text-primary"></i>
+            <h5 class="card-title">Histórico de Editais</h5>
+            <p class="card-text">Visualize os editais em que você já se inscreveu.</p>
+            <a href="#" class="btn btn-custom">Consultar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow">
+          <div class="card-body text-center">
+            <i class="fas fa-file-download fa-3x mb-3 text-primary"></i>
+            <h5 class="card-title">Resultados e Documentos</h5>
+            <p class="card-text">Acesse seus resultados e documentos adicionais.</p>
+            <a href="#" class="btn btn-custom">Acessar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+
+{% block rodape %}
+<!-- Footer -->
+<footer class="footer text-center">
+  <div class="container py-4">
+    <p class="mb-2">Siga-nos nas redes sociais:</p>
+    <div class="social-icons mb-3">
+      <a href="https://www.facebook.com/portalfab" target="_blank" aria-label="Facebook">
+        <i class="fab fa-facebook fa-2x"></i>
+      </a>
+      <a href="https://twitter.com/portalfab" target="_blank" aria-label="Twitter" class="mx-3">
+        <i class="fab fa-twitter fa-2x"></i>
+      </a>
+      <a href="https://www.instagram.com/portalfab/" target="_blank" aria-label="Instagram">
+        <i class="fab fa-instagram fa-2x"></i>
+      </a>
+    </div>
+    <p>
+      <a href="feedback.html" class="feedback-link">Deixe seu feedback</a>
+    </p>
+    <p>© 2024 Força Aérea Brasileira. Todos os direitos reservados.</p>
+  </div>
+</footer>
+{% endblock %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+

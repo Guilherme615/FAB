@@ -1,0 +1,40 @@
+  /* Área do Candidato */
+  .area-candidato h2 {
+    color: #00303d;
+    font-weight: 600;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 8px;
+    background-color: #f9f6ee;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-title {
+    color: #005066;
+    font-weight: 600;
+  }
+  
+  .text-primary {
+    color: #00607a !important;
+  }
+  
+  .btn-custom {
+    background-color: #00607a;
+    color: #f9f6ee;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-custom:hover {
+    background-color: #005066;
+  }
+  

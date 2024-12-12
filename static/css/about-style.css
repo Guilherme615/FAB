@@ -1,0 +1,21 @@
+/* Títulos */
+h1, h2 {
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  /* Botão */
+  .btn-inscricao {
+    background-color: #00607a;
+    color: #f9f6ee;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-inscricao:hover {
+    background-color: #005066;
+    transform: scale(1.05);
+  }
+  

@@ -1,0 +1,62 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Convocação Temporária FAB - Login</title>
+{% endblock %}
+
+{% block conteudo %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card custom-card">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Login</h2>
+                    <form method="post">
+                        {% csrf_token %}
+
+                        {% if form.errors %}
+                            <div class="alert alert-danger mt-3">
+                                {% for error in form.non_field_errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        <div>
+                            {{ form.username.label_tag }}
+                            {{ form.username }}
+                            {% if form.username.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.username.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            {{ form.senha.label_tag }}
+                            {{ form.senha }}
+                            {% if form.senha.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.senha.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-custom btn-lg">Entrar</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="text-center">
+                    <small>Não tem uma conta? <a href="{% url 'register' %}">Cadastrar</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

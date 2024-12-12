@@ -1,0 +1,92 @@
+/* Inscrição Section */
+.inscricao-section {
+    background-color: #f9f6ee;
+    color: #002029;
+    padding: 60px 20px;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #00303d;
+}
+
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #005066;
+}
+
+.form-control:focus {
+    border-color: #00607a;
+    box-shadow: 0 0 5px rgba(0, 96, 122, 0.6);
+}
+
+h5 {
+    color: #00303d;
+    font-weight: 600;
+}
+
+ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+/* Botões */
+.btn-custom {
+    background-color: #00607a;
+    color: #f9f6ee;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4
+}
+
+/* Login Section */
+.login-section {
+  background-color: #f9f6ee;
+  color: #002029;
+  padding: 60px 20px;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #00303d;
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #005066;
+}
+
+.form-control:focus {
+  border-color: #00607a;
+  box-shadow: 0 0 5px rgba(0, 96, 122, 0.6);
+}
+
+h2 {
+  color: #00303d;
+  font-weight: 600;
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Botões */
+.btn-custom {
+  background-color: #00607a;
+  color: #f9f6ee;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+  background-color: #004052;
+}

@@ -1,0 +1,77 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block conteudo %}
+<section class="inscricao-section py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Formulário de Cadastro</h2>
+
+    <form id="inscricaoForm" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="nome" class="form-label">Nome Completo*</label>
+          <input type="text" class="form-control" name="nome" id="nome" placeholder="Seu nome completo" required>
+        </div>
+        <div class="col-md-6">
+          <label for="cpf" class="form-label">CPF*</label>
+          <input type="text" class="form-control" name="cpf" id="cpf" placeholder="Seu CPF" required>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="email" class="form-label">E-mail*</label>
+          <input type="email" class="form-control" name="email" id="email" placeholder="Seu e-mail" required>
+        </div>
+        <div class="col-md-6">
+          <label for="telefone" class="form-label">Telefone*</label>
+          <input type="tel" class="form-control" name="telefone" id="telefone" placeholder="Seu telefone" required>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="senha" class="form-label">Senha*</label>
+          <input type="password" class="form-control" name="senha" id="senha" placeholder="Sua senha" required>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="documento" class="form-label">Anexar Documento oficial com foto*</label>
+          <input type="file" class="form-control" name="documento" id="documento" required>
+        </div>
+      </div>
+
+      <div class="form-check mb-3">
+        <input type="checkbox" class="form-check-input" name="termos" id="termos" required>
+        <label class="form-check-label" for="termos">Aceito os termos e condições*</label>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-custom btn-lg">Enviar Inscrição</button>
+      </div>
+    </form>
+
+  </div>
+</section>
+
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmationModalLabel">Inscrição Concluída</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <p>Parabéns! Sua inscrição foi realizada com sucesso. Você será redirecionado para a área do candidato.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="redirectButton" data-bs-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

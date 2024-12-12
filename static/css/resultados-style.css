@@ -1,0 +1,66 @@
+/* Tabela */
+.table {
+    background-color: #f9f6ee;
+    color: #002029;
+}
+
+.table thead {
+    background-color: #004052;
+    color: #f9f6ee;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #e8eff1;
+}
+
+/* Botões */
+.btn-visualizar {
+    background-color: #00607a;
+    color: #f9f6ee;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    margin-right: 5px;
+    transition: all 0.3s ease;
+}
+
+.btn-download {
+    background-color: #005066;
+    color: #f9f6ee;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    transition: all 0.3s ease;
+}
+
+.btn-visualizar:hover, .btn-download:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Badges de status */
+.badge {
+  font-size: 0.9rem;
+  padding: 5px 10px;
+}
+
+.bg-success {
+  background-color: #28a745 !important;
+}
+
+.bg-danger {
+  background-color: #dc3545 !important;
+}
+
+
+/* Paginação */
+.pagination .page-link {
+    color: #004052;
+    border-color: #004052;
+}
+
+.pagination .page-link:hover {
+    background-color: #005066;
+    color: #f9f6ee;
+    border-color: #005066;
+}
