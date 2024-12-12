@@ -3,10 +3,12 @@ from .forms import InscricaoForm, LoginForm, EditalForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+from .models import Edital
+from django.core.paginator import Paginator
+from django.utils import timezone  # Importando timezone para pegar a data atual
 
 def index(request):
     return render(request, 'index.html')
-
 
 def register(request):
     if request.method == 'POST':
@@ -16,11 +18,11 @@ def register(request):
         telefone = request.POST['telefone']
         documento = request.FILES['documento']
         termos = request.POST.get('termos')
-        senha = request.POST['senha']  # Obter a senha do formulário
+        senha = request.POST['senha']
 
         if termos:
             # Criar o usuário no banco de dados
-            user = User.objects.create_user(username=nome, email=email, password=senha)  # Usar "nome" como username
+            user = User.objects.create_user(username=nome, email=email, password=senha)  
             user.first_name = nome  # Armazenar o nome completo no campo `first_name`
             user.save()
 
@@ -56,10 +58,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)  # Desloga o usuário
-    return redirect('index')  # Redireciona para a página inicial (substitua 'home' pela URL desejada)
-
-def editais(request):
-    return render(request, 'editais.html')
+    return redirect('index')  # Redireciona para a página inicial
 
 def resultados(request):
     # Filtra todos os usuários, mas exclui o administrador
@@ -78,11 +77,21 @@ def candidato(request):
 def cadastrar_editais(request):
     if request.method == 'POST':
         form = EditalForm(request.POST, request.FILES)
+        
         if form.is_valid():
-            form.save()
-            messages.success(request, "Edital cadastrado com sucesso!")
-            return redirect('cadastrar_editais')
+            edital = form.save(commit=False)  # Cria uma instância mas não salva ainda no banco
+            edital.save()  # Salva no banco de dados
+
+            messages.success(request, 'Edital cadastrado com sucesso!')
+            return redirect('editais')  # Redireciona para a página de editais
+        else:
+            messages.error(request, 'Erro ao cadastrar edital. Tente novamente.')
     else:
         form = EditalForm()
 
     return render(request, 'cadastrar_editais.html', {'form': form})
+
+def edital_view(request):
+    # Recupera todos os editais ordenados pela data de publicação ou outro critério desejado
+    editais_list = Edital.objects.all().order_by('-data_publicacao')  # Ajuste conforme sua necessidade
+    return render(request, 'editais.html', {'editais': editais_list})

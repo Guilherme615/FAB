@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 class Inscricao(models.Model):
     nome = models.CharField(max_length=255)
@@ -12,10 +13,17 @@ class Inscricao(models.Model):
         return self.nome
 
 class Edital(models.Model):
+    STATUS_CHOICES = [
+        ('aberto', 'Aberto'),
+        ('fechado', 'Fechado'),
+    ]
+    
     titulo = models.CharField(max_length=255)
-    descricao = models.TextField(blank=True)
-    arquivo_pdf = models.FileField(upload_to='editais/', verbose_name="Arquivo PDF")
-    data_criacao = models.DateTimeField(auto_now_add=True)
+    descricao = models.TextField()
+    data_publicacao = models.DateField()
+    arquivo_pdf = models.FileField(upload_to='editais/', null=True, blank=True, default='path/to/default/file.pdf')  # Definindo um arquivo padrão
+    status = models.CharField(max_length=7, choices=STATUS_CHOICES, default='aberto')
 
     def __str__(self):
         return self.titulo
+

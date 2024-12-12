@@ -1,5 +1,6 @@
 from django import forms
 from .models import Inscricao, Edital
+from django.utils import timezone  # Importando timezone para pegar a data atual
 
 class InscricaoForm(forms.ModelForm):
     class Meta:
@@ -27,4 +28,4 @@ class LoginForm(forms.Form):
 class EditalForm(forms.ModelForm):
     class Meta:
         model = Edital
-        fields = ['titulo', 'descricao', 'arquivo_pdf']
+        fields = ['titulo', 'descricao', 'data_publicacao', 'arquivo_pdf', 'status']  # Adapte conforme o seu modelo
