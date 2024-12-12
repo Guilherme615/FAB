@@ -78,7 +78,6 @@
 {% endblock %}
 
 {% block conteudo %}
-<<<<<<< HEAD
 <!-- Hero Section -->
 <section class="hero-section">
   <div class="container">
@@ -116,30 +115,3 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-=======
-    <div id="conteudo">
-        <div class="banner">
-            <div class="slider" style="--quantity: 10">
-                {% for obra in obras %}
-                <div class="item" style="--position: {{ forloop.counter }}">
-                    <a href="{% url 'detalhes_obra' obra.titulo %}">
-                        <img src="{{ obra.capa.url }}" alt="{{ obra.titulo }}">
-                    </a>
-                </div>
-                {% endfor %}
-            </div>
-            <div class="content">
-                <h1 data-content="Otaku Estudante">Otaku Estudante</h1>
-                <div class="model"></div>
-            </div>
-        </div>
-
-        <!-- Botão "Ver Mais" -->
-        <div style="text-align: center; margin-top: 0px;">
-            <a href="{% url 'todas_as_obras' %}" class="btn btn-primary" style="padding: 10px 20px; font-size: 16px;">
-                Ver Mais Obras
-            </a>
-        </div>
-    </div>
-{% endblock %}
->>>>>>> 5e9ebc0202526dd3e04a35ac43592f5ae7481ee8
