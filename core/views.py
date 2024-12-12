@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from .forms import InscricaoForm, LoginForm
+from .forms import InscricaoForm, LoginForm, EditalForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-
+from django.contrib import messages
 
 def index(request):
     return render(request, 'index.html')
@@ -74,3 +74,15 @@ def feedback(request):
 
 def candidato(request):
     return render(request, 'area-candidato.html')
+
+def cadastrar_editais(request):
+    if request.method == 'POST':
+        form = EditalForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Edital cadastrado com sucesso!")
+            return redirect('cadastrar_editais')
+    else:
+        form = EditalForm()
+
+    return render(request, 'cadastrar_editais.html', {'form': form})

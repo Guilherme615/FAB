@@ -10,3 +10,12 @@ class Inscricao(models.Model):
 
     def __str__(self):
         return self.nome
+
+class Edital(models.Model):
+    titulo = models.CharField(max_length=255)
+    descricao = models.TextField(blank=True)
+    arquivo_pdf = models.FileField(upload_to='editais/', verbose_name="Arquivo PDF")
+    data_criacao = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.titulo

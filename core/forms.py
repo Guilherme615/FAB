@@ -1,5 +1,5 @@
 from django import forms
-from .models import Inscricao
+from .models import Inscricao, Edital
 
 class InscricaoForm(forms.ModelForm):
     class Meta:
@@ -23,3 +23,8 @@ class LoginForm(forms.Form):
         label='Senha',
         widget=forms.PasswordInput(attrs={'placeholder': 'Sua senha', 'class': 'form-control'})
     )
+
+class EditalForm(forms.ModelForm):
+    class Meta:
+        model = Edital
+        fields = ['titulo', 'descricao', 'arquivo_pdf']

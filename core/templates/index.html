@@ -52,29 +52,33 @@
               {% if user.is_authenticated %}
                 <!-- Exibe o botão "Sair" quando o usuário está logado -->
                 <div class="nav-links d-flex align-items-center">
-                  <a class="nav-link me-3" href="{% url 'candidato' %}">
-                    <i class="fas fa-user-circle"></i> Área do Candidato
-                  </a>
-                  <a class="nav-link" href="{% url 'logout' %}">
-                    <i class="fas fa-sign-out-alt"></i> Sair
-                  </a>
+                    <a class="nav-link me-3" href="{% url 'candidato' %}">
+                        <i class="fas fa-user-circle"></i> Área do Candidato
+                    </a>
+                    <!-- Novo link para Cadastrar Edital -->
+                    <a class="nav-link me-3" href="{% url 'cadastrar_editais' %}">
+                        <i class="fas fa-file-upload"></i> Cadastrar Edital
+                    </a>
+                    <a class="nav-link" href="{% url 'logout' %}">
+                        <i class="fas fa-sign-out-alt"></i> Sair
+                    </a>
                 </div>                
-              {% else %}
-                  <!-- Exibe o botão "Entrar" quando o usuário não está logado -->
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="fas fa-sign-in-alt"></i> Entrar
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="nav-link" href="{% url 'register' %}">
-                          <i class="fas fa-pen"></i> Inscrição
-                      </a>
-                      <li>
-                          <a class="dropdown-item" href="{% url 'login' %}">
-                              <i class="fas fa-user-circle"></i> Área do Candidato
-                          </a>
-                      </li>
-                  </ul>
-              {% endif %}
+            {% else %}
+                <!-- Exibe o botão "Entrar" quando o usuário não está logado -->
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-sign-in-alt"></i> Entrar
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="nav-link" href="{% url 'register' %}">
+                        <i class="fas fa-pen"></i> Inscrição
+                    </a>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'login' %}">
+                            <i class="fas fa-user-circle"></i> Área do Candidato
+                        </a>
+                    </li>
+                </ul>
+            {% endif %}
           </li>
         </ul>
     </div>
