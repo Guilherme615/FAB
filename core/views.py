@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import InscricaoForm, LoginForm, EditalForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -6,6 +6,8 @@ from django.contrib import messages
 from .models import Edital
 from django.core.paginator import Paginator
 from django.utils import timezone  # Importando timezone para pegar a data atual
+from django.contrib.auth.decorators import login_required
+
 
 def index(request):
     return render(request, 'index.html')
@@ -74,24 +76,30 @@ def feedback(request):
 def candidato(request):
     return render(request, 'area-candidato.html')
 
-def cadastrar_editais(request):
+def cadastrar_edital(request):
     if request.method == 'POST':
         form = EditalForm(request.POST, request.FILES)
-        
         if form.is_valid():
-            edital = form.save(commit=False)  # Cria uma instância mas não salva ainda no banco
-            edital.save()  # Salva no banco de dados
-
-            messages.success(request, 'Edital cadastrado com sucesso!')
-            return redirect('editais')  # Redireciona para a página de editais
-        else:
-            messages.error(request, 'Erro ao cadastrar edital. Tente novamente.')
+            form.save()
+            return redirect('editais')  # Nome de uma página de listagem futura
     else:
         form = EditalForm()
-
-    return render(request, 'cadastrar_editais.html', {'form': form})
+    return render(request, 'cadastrar_edital.html', {'form': form})
 
 def edital_view(request):
-    # Recupera todos os editais ordenados pela data de publicação ou outro critério desejado
-    editais_list = Edital.objects.all().order_by('-data_publicacao')  # Ajuste conforme sua necessidade
-    return render(request, 'editais.html', {'editais': editais_list})
+    editais_list = Edital.objects.all().order_by('-data_publicacao')  # Ordenar por data
+    paginator = Paginator(editais_list, 10)  # 10 editais por página
+    page_number = request.GET.get('page')
+    editais = paginator.get_page(page_number)
+    return render(request, 'editais.html', {'editais': editais})
+
+@login_required
+def excluir_edital(request, edital_id):
+    if not request.user.is_staff:
+        messages.error(request, "Você não tem permissão para excluir editais.")
+        return redirect('editais.html')
+
+    edital = get_object_or_404(Edital, id=edital_id)
+    edital.delete()
+    messages.success(request, "Edital excluído com sucesso.")
+    return redirect('editais')

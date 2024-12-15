@@ -13,5 +13,6 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('feedback/', views.feedback, name='feedback'),
     path('candidato/', views.candidato, name='candidato'),
-    path('cadastrar-editais/', views.cadastrar_editais, name='cadastrar_editais'),  # Corrigido a vírgula faltante
+    path('cadastrar/', views.cadastrar_edital, name='cadastrar_edital'),
+    path('excluir-edital/<int:edital_id>/', views.excluir_edital, name='excluir_edital'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

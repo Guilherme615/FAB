@@ -28,4 +28,11 @@ class LoginForm(forms.Form):
 class EditalForm(forms.ModelForm):
     class Meta:
         model = Edital
-        fields = ['titulo', 'descricao', 'data_publicacao', 'arquivo_pdf', 'status']  # Adapte conforme o seu modelo
+        fields = ['titulo', 'descricao', 'data_publicacao', 'arquivo_pdf', 'status']  # Certifique-se de que esses campos existem no modelo.
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite o título do edital'}),
+            'descricao': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Descrição opcional'}),
+            'data_publicacao': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'arquivo_pdf': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'status': forms.Select(attrs={'class': 'form-control'}),
+        }

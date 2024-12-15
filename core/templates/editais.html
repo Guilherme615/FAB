@@ -2,126 +2,108 @@
 {% load static %}
 
 {% block titulo %}
-<title>Convocação Temporária FAB - Login</title>
+<title>Convocação Temporária FAB - Editais</title>
 {% endblock %}
 
 {% block conteudo %}
-<!-- Página de Editais -->
 <section class="editais-section">
     <div class="container py-5">
-      <h2 class="text-center mb-4">Editais Disponíveis</h2>
-      <!-- Filtros -->
-      <div class="row mb-4">
-        <!-- Busca por título -->
-        <div class="col-md-4 d-flex">
-          <input type="text" class="form-control" id="searchTitle" placeholder="Buscar por título...">
-          <button class="btn btn-search d-flex align-items-center justify-content-center" id="searchButton" type="button">
-            <i class="fas fa-search"></i>
-          </button>
+        <h2 class="text-center mb-4">Editais Disponíveis</h2>
+        
+        <!-- Filtros -->
+        <div class="row mb-4">
+            <div class="col-md-4 d-flex">
+                <input type="text" class="form-control" id="searchTitle" placeholder="Buscar por título...">
+                <button class="btn btn-search d-flex align-items-center justify-content-center" id="searchButton" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div class="col-md-4">
+                <select class="form-select" id="filterArea">
+                    <option value="">Filtrar por Área</option>
+                    <option value="saude">Saúde</option>
+                    <option value="tecnologia">Tecnologia</option>
+                </select>
+            </div>
+            <div class="col-md-4 d-flex">
+                <input type="date" class="form-control" id="filterDate">
+                <button class="btn btn-reset d-flex align-items-center justify-content-center" id="resetButton" type="button" title="Limpar filtros">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
         </div>
-  
-        <!-- Filtro por área -->
-        <div class="col-md-4">
-          <select class="form-select" id="filterArea">
-            <option value="">Filtrar por Área</option>
-            <option value="saude">Saúde</option>
-            <option value="tecnologia">Tecnologia</option>
-          </select>
-        </div>
-  
-        <!-- Filtro por data -->
-        <div class="col-md-4 d-flex">
-          <input type="date" class="form-control" id="filterDate">
-          <button class="btn btn-reset d-flex align-items-center justify-content-center" id="resetButton" type="button" title="Limpar filtros">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-      </div>
-  
-      <!-- Tabela -->
-      <div class="table-responsive">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Nº</th>
-              <th>Título</th>
-              <th>Data de Publicação</th>
-              <th>Status</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Edital de Convocação - Área Saúde</td>
-              <td>15/11/2024</td>
-              <td><span class="badge bg-success">Aberto</span></td>
-              <td>
-                <a href="{% static 'docs/modeloeditalfab.pdf' %}" target="_blank" class="btn btn-visualizar">
-                  <i class="fas fa-eye"></i> Visualizar
-                </a>
-                <a href="{% static 'docs/modeloeditalfab.pdf' %}" download class="btn btn-download">
-                  <i class="fas fa-download"></i> Download
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Edital de Convocação - Tecnologia</td>
-              <td>10/11/2024</td>
-              <td><span class="badge bg-danger">Fechado</span></td>
-              <td>
-                <a href="{% static 'docs/modeloeditalfab.pdf' %}" target="_blank" class="btn btn-visualizar">
-                  <i class="fas fa-eye"></i> Visualizar
-                </a>
-                <a href="{% static 'docs/modeloeditalfab.pdf' %}" download class="btn btn-download">
-                  <i class="fas fa-download"></i> Download
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
 
-    <!-- Paginação -->
-    <nav>
-      <ul class="pagination justify-content-center">
-        <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Próximo</a></li>
-      </ul>
-    </nav>
-  </div>
+        <!-- Tabela de Editais -->
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nº</th>
+                        <th>Título</th>
+                        <th>Data de Publicação</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for edital in editais %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ edital.titulo }}</td>
+                        <td>{{ edital.data_publicacao|date:"d/m/Y" }}</td>
+                        <td>
+                          {% if edital.status|lower == 'aberto' %}
+                          <span class="badge bg-success">Aberto</span>
+                          {% else %}
+                          <span class="badge bg-danger">Fechado</span>
+                          {% endif %}
+                        </td>
+                        <td>
+                          {% if edital.arquivo_pdf %}
+                          <a href="{{ edital.arquivo_pdf.url }}" target="_blank" class="btn btn-visualizar">
+                              <i class="fas fa-eye"></i> Visualizar
+                          </a>
+                          <a href="{{ edital.arquivo_pdf.url }}" download class="btn btn-download">
+                              <i class="fas fa-download"></i> Download
+                          </a>
+                          {% else %}
+                          <span class="text-muted">Sem arquivo</span>
+                          {% endif %}
+                          
+                          {% if user.is_authenticated and user.is_staff %}
+                          <form action="{% url 'excluir_edital' edital.id %}" method="post" style="display: inline;">
+                              {% csrf_token %}
+                              <button type="submit" class="btn btn-danger btn-sm" title="Excluir Edital">
+                                  <i class="fas fa-trash-alt"></i> Excluir
+                              </button>
+                          </form>
+                          {% endif %}
+                      </td>                      
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">Nenhum edital disponível.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </section>
 
-<!-- Modal de Resultados -->
-<div class="modal fade" id="resultsModal" tabindex="-1" aria-labelledby="resultsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="resultsModalLabel">Resultado da Busca</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-        </div>
-        <div class="modal-body">
-          <p id="modalMessage">Carregando resultados...</p>
-          <ul id="resultList" class="list-group d-none"></ul>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  {% endblock %}
-
-{% block rodape %}
-  {% include 'footer.html' %}
+<nav>
+    <ul class="pagination justify-content-center">
+        {% if editais.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ editais.previous_page_number }}">Anterior</a></li>
+        {% endif %}
+        {% for num in editais.paginator.page_range %}
+        <li class="page-item {% if editais.number == num %}active{% endif %}">
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+        </li>
+        {% endfor %}
+        {% if editais.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ editais.next_page_number }}">Próximo</a></li>
+        {% endif %}
+    </ul>
+</nav>
 {% endblock %}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/assets/js/editais-filters.js"></script>
-<script src="/assets/js/view&download-editais.js"></script>
-
