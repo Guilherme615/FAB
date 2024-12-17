@@ -3,7 +3,7 @@ from .forms import InscricaoForm, LoginForm, EditalForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Edital
+from .models import Edital, HistoricoEditais
 from django.core.paginator import Paginator
 from django.utils import timezone  # Importando timezone para pegar a data atual
 from django.contrib.auth.decorators import login_required
@@ -73,8 +73,10 @@ def about(request):
 def feedback(request):
     return render(request, 'feedback.html')
 
+@login_required
 def candidato(request):
-    return render(request, 'area-candidato.html')
+    return render(request, 'area-candidato.html', {'user': request.user})
+
 
 def cadastrar_edital(request):
     if request.method == 'POST':
@@ -103,3 +105,24 @@ def excluir_edital(request, edital_id):
     edital.delete()
     messages.success(request, "Edital excluído com sucesso.")
     return redirect('editais')
+
+@login_required
+def inscrever_edital(request, edital_id):
+    edital = get_object_or_404(Edital, id=edital_id)
+    
+    if edital.status.lower() != 'aberto':
+        messages.error(request, "O edital não está mais aberto para inscrições.")
+        return redirect('listar_editais')  # Ajuste o nome da sua URL para listar editais
+
+    # Adicionar o edital ao histórico do usuário
+    historico, created = HistoricoEditais.objects.get_or_create(user=request.user, edital=edital)
+    if created:
+        messages.success(request, "Você se inscreveu com sucesso no edital!")
+    else:
+        messages.warning(request, "Você já está inscrito nesse edital.")
+    
+    return redirect('listar_editais')
+
+def listar_editais(request):
+    editais = Edital.objects.all()
+    return render(request, 'listar_editais.html', {'editais': editais})

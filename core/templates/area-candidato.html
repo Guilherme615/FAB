@@ -7,7 +7,12 @@
 <section class="area-candidato py-5">
   <div class="container">
     <h2 class="text-center mb-4">Painel do Candidato</h2>
-    
+
+    <!-- Exibir nome do usuário logado -->
+    <div class="text-center mb-4">
+      <p class="h5"><strong>{{ user.first_name|default:user.username }}</strong></p>
+    </div>
+
     <!-- Painel -->
     <div class="row">
       <div class="col-md-4 mb-4">
@@ -26,7 +31,7 @@
             <i class="fas fa-history fa-3x mb-3 text-primary"></i>
             <h5 class="card-title">Histórico de Editais</h5>
             <p class="card-text">Visualize os editais em que você já se inscreveu.</p>
-            <a href="#" class="btn btn-custom">Consultar</a>
+            <a href="{% url 'listar_editais' %}" class="btn btn-custom">Consultar</a>
           </div>
         </div>
       </div>
@@ -45,10 +50,8 @@
 </section>
 {% endblock %}
 
-
 {% block rodape %}
     {% include 'footer.html' %}
 {% endblock %}
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-
