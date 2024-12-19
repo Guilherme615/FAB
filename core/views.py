@@ -126,3 +126,19 @@ def inscrever_edital(request, edital_id):
 def listar_editais(request):
     editais = Edital.objects.all()
     return render(request, 'listar_editais.html', {'editais': editais})
+
+# Função para aprovar um usuário
+def aprovar_usuario(request, usuario_id):
+    usuario = get_object_or_404(User, id=usuario_id)
+    usuario.status = 'aprovado'  # Atualiza o status para 'aprovado'
+    usuario.save()
+    messages.success(request, f"Usuário {usuario.get_full_name()} aprovado com sucesso.")
+    return redirect('resultados')  # Redireciona para a página de resultados
+
+# Função para recusar um usuário
+def recusar_usuario(request, usuario_id):
+    usuario = get_object_or_404(User, id=usuario_id)
+    usuario.status = 'recusado'  # Atualiza o status para 'recusado'
+    usuario.save()
+    messages.success(request, f"Usuário {usuario.get_full_name()} recusado com sucesso.")
+    return redirect('resultados')  # Redireciona para a página de resultados

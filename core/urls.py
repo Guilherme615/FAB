@@ -17,4 +17,6 @@ urlpatterns = [
     path('about/', views.about, name='about'),  # Sobre
     path('feedback/', views.feedback, name='feedback'),  # Feedback
     path('candidato/', views.candidato, name='candidato'),  # Área do candidato
+    path('aprovar/<int:usuario_id>/', views.aprovar_usuario, name='aprovar_usuario'),
+    path('recusar/<int:usuario_id>/', views.recusar_usuario, name='recusar_usuario'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
