@@ -27,6 +27,7 @@
               <th>Nome do Candidato</th>
               <th>CPF</th>
               <th>Edital</th>
+              <th>Data de Inscrição</th>
               <th>Resultado</th>
               <th>Ações</th>
             </tr>
@@ -37,7 +38,28 @@
               <td>{{ forloop.counter }}</td>
               <td>{{ usuario.get_full_name|default:usuario.username }}</td>
               <td>***.***.***-{{ usuario.id|slice:"-2:" }}</td> <!-- Apenas um exemplo de CPF mascarado -->
-              <td>Edital Padrão</td>
+
+              <!-- Exibe os editais do usuário -->
+              <td>
+                {% if usuario.historico_editais.all %}
+                  {% for historico in usuario.historico_editais.all %}
+                    <span class="badge bg-info">{{ historico.edital.titulo }}</span><br>
+                  {% endfor %}
+                {% else %}
+                  <span class="badge bg-secondary">Nenhum edital</span>
+                {% endif %}
+              </td>
+
+              <td>
+                {% if usuario.historico_editais.all %}
+                  {% for historico in usuario.historico_editais.all %}
+                    <span class="badge bg-info">{{ historico.data_inscricao|date:"d/m/Y H:i" }}</span><br>
+                  {% endfor %}
+                {% else %}
+                  <span class="badge bg-secondary">Nenhuma inscrição</span>
+                {% endif %}
+              </td>
+              
               <td><span class="badge bg-warning">Pendente</span></td>
               <td>
                 <button class="btn btn-visualizar"><i class="fas fa-eye"></i> Visualizar</button>
@@ -46,7 +68,7 @@
             </tr>
             {% empty %}
             <tr>
-              <td colspan="6" class="text-center">Nenhum usuário encontrado</td>
+              <td colspan="7" class="text-center">Nenhum usuário encontrado</td>
             </tr>
             {% endfor %}
           </tbody>
