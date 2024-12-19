@@ -3,7 +3,7 @@ from .forms import InscricaoForm, LoginForm, EditalForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Edital, HistoricoEditais
+from .models import Edital, HistoricoEditais, Perfil
 from django.core.paginator import Paginator
 from django.utils import timezone  # Importando timezone para pegar a data atual
 from django.contrib.auth.decorators import login_required
@@ -127,18 +127,29 @@ def listar_editais(request):
     editais = Edital.objects.all()
     return render(request, 'listar_editais.html', {'editais': editais})
 
-# Função para aprovar um usuário
 def aprovar_usuario(request, usuario_id):
     usuario = get_object_or_404(User, id=usuario_id)
-    usuario.status = 'aprovado'  # Atualiza o status para 'aprovado'
-    usuario.save()
-    messages.success(request, f"Usuário {usuario.get_full_name()} aprovado com sucesso.")
-    return redirect('resultados')  # Redireciona para a página de resultados
+    
+    # Tenta pegar o perfil do usuário ou cria um novo caso não exista
+    perfil, created = Perfil.objects.get_or_create(user=usuario)
+    
+    # Atualiza o status do perfil para aprovado
+    perfil.status = 'aprovado'
+    perfil.save()
+    
+    # Redireciona para a página de resultados ou qualquer outra página que desejar
+    return redirect('resultados')  # ou 'resultados' caso queira voltar para a lista
 
-# Função para recusar um usuário
 def recusar_usuario(request, usuario_id):
     usuario = get_object_or_404(User, id=usuario_id)
-    usuario.status = 'recusado'  # Atualiza o status para 'recusado'
-    usuario.save()
-    messages.success(request, f"Usuário {usuario.get_full_name()} recusado com sucesso.")
-    return redirect('resultados')  # Redireciona para a página de resultados
+
+    # Verifica se o usuário tem um perfil associado
+    try:
+        perfil = usuario.perfil  # Acessa o perfil do usuário
+        perfil.status = 'recusado'  # Altera o status para 'recusado'
+        perfil.save()  # Salva as alterações
+        messages.success(request, f"Usuário {usuario.get_full_name()} recusado com sucesso.")
+    except Perfil.DoesNotExist:
+        messages.error(request, "Perfil não encontrado para o usuário.")
+    
+    return redirect('resultados')

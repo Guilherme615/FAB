@@ -57,30 +57,32 @@
               </td>
               
               <td>
-                {% if usuario.status == 'aprovado' %}
+                {% if usuario.perfil.status == 'aprovado' %}
                   <span class="badge bg-success">Aprovado</span>
-                {% elif usuario.status == 'recusado' %}
+                {% elif usuario.perfil.status == 'recusado' %}
                   <span class="badge bg-danger">Recusado</span>
                 {% else %}
                   <span class="badge bg-warning">Pendente</span>
                 {% endif %}
               </td>
-
+              
               <td>
-                {% if usuario.status != 'aprovado' %}
+                {% if usuario.perfil.status != 'aprovado' %}
                   <form action="{% url 'aprovar_usuario' usuario.id %}" method="post" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-success btn-sm">Aprovar</button>
                   </form>
                 {% endif %}
                 
-                {% if usuario.status != 'recusado' %}
+                {% if usuario.perfil.status != 'recusado' %}
                   <form action="{% url 'recusar_usuario' usuario.id %}" method="post" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger btn-sm">Recusar</button>
                   </form>
                 {% endif %}
               </td>
+              
+              
             </tr>
             {% empty %}
             <tr>
