@@ -21,19 +21,17 @@
 
             <!-- Exibir informações do usuário -->
             <div class="mb-3">
-              <strong>Nome:</strong> {{ user.first_name }} {{ user.last_name|default:"" }}<br>
               <strong>E-mail:</strong> {{ user.email }}<br>
-              <strong>CPF:</strong> {{ user.profile.cpf|default:"Não informado" }} <!-- Supondo que o CPF esteja no perfil do usuário -->
             </div>
 
             <!-- Exibir documento -->
-            {% if user.profile.documento %}
-              <div class="mb-3">
-                <strong>Documento:</strong>
-                <a href="{{ user.profile.documento.url }}" class="btn btn-success" target="_blank">Ver Documento</a>
-              </div>
+            {% if user.perfil.documento %}
+                <div class="mb-3">
+                    <strong>Documento oficial com foto:</strong>
+                    <a href="{{ user.perfil.documento.url }}" class="btn btn-success" target="_blank">Visualizar Documento</a>
+                </div>
             {% else %}
-              <p class="text-center">Nenhum documento carregado.</p>
+                <p class="text-center">Nenhum documento foi carregado.</p>
             {% endif %}
           </div>
         </div>
