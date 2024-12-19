@@ -169,3 +169,23 @@ def resultado_edital(request):
         'perfil': perfil,
         'historico_editais': historico_editais,
     })
+
+@login_required
+def documentos(request):
+    # Obtém o perfil do usuário logado
+    perfil = Perfil.objects.filter(user=request.user).first()
+
+    if perfil:
+        # Recupera os dados do perfil, como nome, email, e o documento carregado
+        nome = perfil.user.first_name
+        email = perfil.user.email
+        documento = perfil.documento  # Supondo que 'documento' seja o campo do arquivo
+    else:
+        nome = email = documento = None
+
+    return render(request, 'documentos.html', {
+        'perfil': perfil,
+        'nome': nome,
+        'email': email,
+        'documento': documento,
+    })

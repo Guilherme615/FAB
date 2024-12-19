@@ -47,11 +47,6 @@
           </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.view_name == 'resultados' %}active fw-bold{% endif %}" href="{% url 'resultados' %}">
-                <i class="fas fa-check-circle"></i> Resultados
-            </a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link {% if request.resolver_match.view_name == 'about' %}active fw-bold{% endif %}" href="{% url 'about' %}">
                 <i class="fas fa-info-circle"></i> Sobre a FAB
             </a>
@@ -63,6 +58,11 @@
                 </a>
             </li>
             {% if user.is_superuser %}
+            <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.view_name == 'resultados' %}active fw-bold{% endif %}" href="{% url 'resultados' %}">
+                    <i class="fas fa-check-circle"></i> Resultados
+                </a>
+            </li>
             <li class="nav-item ">
                 <a class="nav-link {% if request.resolver_match.view_name == 'cadastrar_edital' %}active fw-bold{% endif %}" href="{% url 'cadastrar_edital' %}">
                     <i class="fas fa-file-upload"></i> Cadastrar Edital

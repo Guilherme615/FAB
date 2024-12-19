@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class Perfil(models.Model):
     # Relacionamento de um para um com o modelo User
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    documento = models.FileField(upload_to='documentos/', null=True, blank=True)
     
     # Definição do status do perfil (pendente, aprovado, recusado)
     STATUS_CHOICES = [

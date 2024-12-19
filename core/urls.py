@@ -20,4 +20,5 @@ urlpatterns = [
     path('aprovar/<int:usuario_id>/', views.aprovar_usuario, name='aprovar_usuario'),  # Aprovar usuário
     path('recusar/<int:usuario_id>/', views.recusar_usuario, name='recusar_usuario'),  # Recusar usuário
     path('resultado_edital/', views.resultado_edital, name='resultado_edital'),
+    path('documentos/', views.documentos, name='documentos'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
