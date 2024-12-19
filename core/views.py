@@ -153,3 +153,19 @@ def recusar_usuario(request, usuario_id):
         messages.error(request, "Perfil não encontrado para o usuário.")
     
     return redirect('resultados')
+
+@login_required
+def resultado_edital(request):
+    # Obtém o perfil do usuário logado
+    perfil = Perfil.objects.filter(user=request.user).first()
+    
+    if perfil:
+        # Verifica se o usuário tem histórico de inscrições
+        historico_editais = perfil.user.historico_editais.all()
+    else:
+        historico_editais = []
+
+    return render(request, 'resultado_edital.html', {
+        'perfil': perfil,
+        'historico_editais': historico_editais,
+    })
